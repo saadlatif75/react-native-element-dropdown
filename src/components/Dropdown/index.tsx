@@ -87,6 +87,7 @@ const DropdownComponent: <T>(
       onConfirmSelectItem,
       accessibilityLabel,
       itemAccessibilityLabelField,
+      saad,
       mode = 'default',
     } = props;
 
@@ -227,11 +228,9 @@ const DropdownComponent: <T>(
     const getValue = useCallback(() => {
       const defaultValue =
         typeof value === 'object' ? _.get(value, valueField) : value;
-
       const getItem = data.filter((e) =>
         _.isEqual(defaultValue, _.get(e, valueField))
       );
-
       if (getItem.length > 0) {
         setCurrentValue(getItem[0]);
       } else {
@@ -363,6 +362,7 @@ const DropdownComponent: <T>(
 
     const _renderDropdown = () => {
       const isSelected = currentValue && _.get(currentValue, valueField);
+        const defaultLabel = data.length > 0 ? _.get(data[0], labelField) : '';
       return (
         <TouchableWithoutFeedback
           testID={testID}
@@ -382,7 +382,7 @@ const DropdownComponent: <T>(
             >
               {isSelected !== null
                 ? _.get(currentValue, labelField)
-                : placeholder}
+                : defaultLabel}
             </Text>
             {renderRightIcon ? (
               renderRightIcon(visible)
@@ -513,7 +513,6 @@ const DropdownComponent: <T>(
     const _renderList = useCallback(
       (isTopPosition: boolean) => {
         const isInverted = !inverted ? false : isTopPosition;
-
         const _renderListHelper = () => {
           return (
             <FlatList
