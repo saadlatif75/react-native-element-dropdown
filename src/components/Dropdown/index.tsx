@@ -362,7 +362,7 @@ const DropdownComponent: <T>(
 
     const _renderDropdown = () => {
       const isSelected = currentValue && _.get(currentValue, valueField);
-        const defaultLabel = data.length > 0 ? _.get(data[0], labelField) : '';
+        const defaultLabel = data.length > 0 ? _.get(data[0], labelField) : placeholder;
       return (
         <TouchableWithoutFeedback
           testID={testID}
